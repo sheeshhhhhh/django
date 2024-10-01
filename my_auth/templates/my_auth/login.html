@@ -1,0 +1,58 @@
+{% extends 'my_auth/base.html' %}
+
+{% block title%} 
+    Login
+{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+{% block content %}
+    <div class="h-screen w-full flex justify-center items-center">
+        <form 
+        id="loginForm"
+        class="border-2 border-slate-600 rounded-lg p-4 shadow-lg max-w-[400px] w-full" >
+            {% csrf_token %}
+            {{ form.as_p }}
+            <h2 class="font-bold text-4xl ml-3 mb-2 font-sans">
+                Login
+            </h2>
+            <div class="flex flex-col gap-2 my-4"> 
+                <input 
+                class="h-[40px] p-2 px-3 text-lg font-medium"
+                type="text" placeholder="Username" name="username" />
+                <input 
+                class="h-[40px] p-2 px-3 text-lg font-medium"
+                type="password" placeholder="password" name="password" />
+            </div>
+            <button 
+            class="w-full bg-slate-600 p-2 rounded-lg font-bold hover:bg-slate-700 "
+            type="submit"
+            >
+                Login
+            </button>
+        </form>
+    </div>
+    <script>
+        const loginForm = document.getElementById('loginForm');
+
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(loginForm);
+            const response = await fetch('/api/loginapi/', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                }
+            })
+            const data = await response.json()
+            
+            if(response.ok) {
+                window.location.href = '/todo/';
+            } else {
+                alert(data.message);
+            }
+        });
+    </script>
+{% endblock %}

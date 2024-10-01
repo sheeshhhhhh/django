@@ -1,0 +1,24 @@
+# Python virtual environments
+venv/
+.env
+.env.*
+
+# Database
+*.sqlite3
+
+# Byte-compiled files
+__pycache__/
+*.py[cod]
+
+# Django stuff:
+*.log
+*.pot
+*.pyc
+
+# Local configuration
+*.local
+
+# IDEs and editors
+.idea/
+*.sublime-workspace
+*.sublime-project
